@@ -7,6 +7,7 @@ RUN apt-get install -y sqlite3 libsqlite3-dev
 WORKDIR /db
 WORKDIR /uploads
 WORKDIR /app
+
 COPY . .
 RUN yarn install
 RUN cd client && yarn install

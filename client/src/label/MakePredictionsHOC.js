@@ -38,10 +38,12 @@ export function withPredictions(Comp) {
 
       if (model.type === 'object_detection') {
         const preds = [];
-        resp.predictions.forEach(({ det_boxes: [y1, x1, y2, x2] }) => {
+        resp.predictions.forEach(({ det_boxes: [y1, x1, y2, x2], det_class: label, det_score: score }) => {
           preds.push({
             type: 'bbox',
             color: 'gray',
+            label: label,
+            score: score,
             points: [
               { lng: x1 * width, lat: (1 - y1) * height },
               { lng: x2 * width, lat: (1 - y2) * height },

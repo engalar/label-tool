@@ -97,10 +97,20 @@ class LabelingApp extends Component {
   handleChange(eventType, figure, newLabelId) {
     if (!figure.color) return;
     const { labels, figures, pushState, height, width, imageData } = this.props;
-    const label =
+    let label =
       figure.color === 'gray'
         ? { id: '__temp' }
         : labels[colors.indexOf(figure.color)];
+
+    // fix predict new
+    if(figure.label) {
+      let labelIndex = labels.findIndex(l=>l.name == figure.label);
+      if(labelIndex != -1) {
+        label = labels[labelIndex];
+        figure.color = colors[labelIndex];
+      };
+    }
+
     const idx = (figures[label.id] || []).findIndex(f => f.id === figure.id);
 
     switch (eventType) {
